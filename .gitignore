@@ -1,0 +1,6 @@
+.sconsign.dblite
+game/bin/*.dll
+game/bin/*.exp
+game/bin/*.lib
+game/bin/*.uid
+build
