@@ -1,5 +1,6 @@
 #include <register_types.h>
 #include "example/logger_node.h"
+#include "player/player.h"
 
 namespace godot
 {
@@ -9,6 +10,7 @@ namespace godot
             return;
 
         GDREGISTER_RUNTIME_CLASS(LoggerNode);
+        GDREGISTER_RUNTIME_CLASS(Player);
     }
 
     void uninit(const ModuleInitializationLevel level)

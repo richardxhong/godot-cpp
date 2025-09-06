@@ -7,7 +7,6 @@
 namespace godot
 {
     LoggerNode::LoggerNode() : time(0.0), frequency(1.0) {}
-    LoggerNode::~LoggerNode() = default;
 
     void LoggerNode::_bind_methods()
     {

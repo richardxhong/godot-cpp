@@ -15,9 +15,8 @@ namespace godot
 
     public:
         LoggerNode();
-        ~LoggerNode();
 
-        void _process(double delta);
+        void _process(double delta) override;
 
         void set_frequency(double f) { frequency = f; }
         double get_frequency() const { return frequency; }
