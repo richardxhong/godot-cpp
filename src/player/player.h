@@ -6,18 +6,21 @@
 
 namespace godot
 {
+    class DirectionalAnimatedSpriteRenderer;
+
     class Player : public CharacterBody2D
     {
         GDCLASS(Player, CharacterBody2D)
 
     private:
         Input *input = nullptr;
+        DirectionalAnimatedSpriteRenderer *renderer = nullptr;
 
     protected:
-        static void _bind_methods() {};
+        static void _bind_methods() {}
 
     public:
-        void _physics_process(double delta) override;
+        void _physics_process(double) override;
         void _ready() override;
     };
 }

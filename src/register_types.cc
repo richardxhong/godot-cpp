@@ -1,6 +1,9 @@
 #include <register_types.h>
 #include "example/logger_node.h"
 #include "player/player.h"
+#include "resource/directional_resource.h"
+#include "resource/resource_map.h"
+#include "renderer/directional_renderer.h"
 
 namespace godot
 {
@@ -8,6 +11,10 @@ namespace godot
     {
         if (level != MODULE_INITIALIZATION_LEVEL_SCENE)
             return;
+
+        GDREGISTER_CLASS(DirectionalResource)
+        GDREGISTER_CLASS(ResourceMap);
+        GDREGISTER_CLASS(DirectionalAnimatedSpriteRenderer)
 
         GDREGISTER_RUNTIME_CLASS(LoggerNode);
         GDREGISTER_RUNTIME_CLASS(Player);
