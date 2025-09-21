@@ -12,12 +12,12 @@ namespace godot
         if (level != MODULE_INITIALIZATION_LEVEL_SCENE)
             return;
 
-        GDREGISTER_CLASS(DirectionalResource)
-        GDREGISTER_CLASS(ResourceMap);
-        GDREGISTER_CLASS(DirectionalAnimatedSpriteRenderer)
+        GDREGISTER_CLASS(resource::DirectionalResource)
+        GDREGISTER_CLASS(resource::ResourceMap);
+        GDREGISTER_CLASS(renderer::DirectionalAnimatedSpriteRenderer)
 
-        GDREGISTER_RUNTIME_CLASS(LoggerNode);
-        GDREGISTER_RUNTIME_CLASS(Player);
+        GDREGISTER_RUNTIME_CLASS(example::LoggerNode);
+        GDREGISTER_RUNTIME_CLASS(player::Player);
     }
 
     void uninit(const ModuleInitializationLevel level)

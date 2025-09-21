@@ -8,13 +8,17 @@
 
 #include "common/direction.h"
 
-namespace godot
+namespace resource
 {
-    class DirectionalResource : public Resource
+    // Local aliases for commonly repeated Godot types in this header
+    template <class T>
+    using Ref = godot::Ref<T>;
+    using Resource = godot::Resource;
+    class DirectionalResource : public godot::Resource
     {
-        GDCLASS(DirectionalResource, Resource)
+        GDCLASS(DirectionalResource, godot::Resource)
     private:
-        std::array<Ref<Resource>, direction_count> assets;
+        std::array<Ref<Resource>, common::direction_count> assets;
         void validate_index(int index) const;
 
     protected:
@@ -23,6 +27,6 @@ namespace godot
     public:
         void set_asset(int index, const Ref<Resource> &asset);
         [[nodiscard]] Ref<Resource> get_asset(int index) const;
-        [[nodiscard]] Ref<Resource> get_best_asset_for(Direction dir, bool &flip_h) const;
+        [[nodiscard]] Ref<Resource> get_best_asset_for(common::Direction dir, bool &flip_h) const;
     };
 }

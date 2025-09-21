@@ -7,10 +7,14 @@
 
 #include "resource/directional_resource.h"
 
-namespace godot
+namespace renderer
 {
+    using AnimatedSprite2D = godot::AnimatedSprite2D;
+    template <class T>
+    using Ref = godot::Ref<T>;
+    using Resource = godot::Resource;
     template <class ChildT>
-    void NodeApplyPolicy<ChildT>::ensure(Child *&child, Node *owner) noexcept
+    void NodeApplyPolicy<ChildT>::ensure(Child *&child, godot::Node *owner) noexcept
     {
         if (!child)
         {
@@ -29,7 +33,7 @@ namespace godot
     template <>
     bool NodeApplyPolicy<AnimatedSprite2D>::apply(AnimatedSprite2D *child, const Ref<Resource> &res)
     {
-        Ref<SpriteFrames> frames = res;
+        Ref<godot::SpriteFrames> frames = res;
         if (!frames.is_valid())
             return false;
 
@@ -51,19 +55,19 @@ namespace godot
     }
 
     template <class Policy>
-    void DirectionalRenderer<Policy>::set_resources(const Ref<ResourceMap> &resources) noexcept
+    void DirectionalRenderer<Policy>::set_resources(const godot::Ref<resource::ResourceMap> &resources) noexcept
     {
         this->resources = resources;
     }
 
     template <class Policy>
-    Ref<ResourceMap> DirectionalRenderer<Policy>::get_resources() const noexcept
+    godot::Ref<resource::ResourceMap> DirectionalRenderer<Policy>::get_resources() const noexcept
     {
         return resources;
     }
 
     template <class Policy>
-    void DirectionalRenderer<Policy>::set_state(const StringName &state) noexcept
+    void DirectionalRenderer<Policy>::set_state(const godot::StringName &state) noexcept
     {
         if (state == this->state)
             return;
@@ -73,7 +77,7 @@ namespace godot
     }
 
     template <class Policy>
-    void DirectionalRenderer<Policy>::set_direction(const Direction &direction) noexcept
+    void DirectionalRenderer<Policy>::set_direction(const common::Direction &direction) noexcept
     {
         if (direction == this->direction)
             return;
@@ -91,7 +95,7 @@ namespace godot
         if (!resources.is_valid())
             return;
 
-        Ref<DirectionalResource> dr = resources->get_resource_for_state(state);
+        godot::Ref<resource::DirectionalResource> dr = resources->get_resource_for_state(state);
         if (!dr.is_valid())
             return;
 
@@ -110,13 +114,12 @@ namespace godot
         }
     }
 
-    void
-    DirectionalAnimatedSpriteRenderer::_bind_methods()
+    void DirectionalAnimatedSpriteRenderer::_bind_methods()
     {
-        ClassDB::bind_method(D_METHOD("get_resources"), &DirectionalAnimatedSpriteRenderer::get_resources);
-        ClassDB::bind_method(D_METHOD("set_resources", "resources"), &DirectionalAnimatedSpriteRenderer::set_resources);
+        godot::ClassDB::bind_method(godot::D_METHOD("get_resources"), &DirectionalAnimatedSpriteRenderer::get_resources);
+        godot::ClassDB::bind_method(godot::D_METHOD("set_resources", "resources"), &DirectionalAnimatedSpriteRenderer::set_resources);
 
-        ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "resources", PROPERTY_HINT_RESOURCE_TYPE, "ResourceMap"), "set_resources", "get_resources");
+        ADD_PROPERTY(godot::PropertyInfo(godot::Variant::OBJECT, "resources", godot::PROPERTY_HINT_RESOURCE_TYPE, "ResourceMap"), "set_resources", "get_resources");
     }
 
     void DirectionalAnimatedSpriteRenderer::_ready()
@@ -124,12 +127,12 @@ namespace godot
         DirectionalRenderer<AnimatedSprite2DPolicy>::_ready();
     }
 
-    void DirectionalAnimatedSpriteRenderer::set_resources(const Ref<ResourceMap> &res) noexcept
+    void DirectionalAnimatedSpriteRenderer::set_resources(const godot::Ref<resource::ResourceMap> &res) noexcept
     {
         DirectionalRenderer<AnimatedSprite2DPolicy>::set_resources(res);
     }
 
-    Ref<ResourceMap> DirectionalAnimatedSpriteRenderer::get_resources() const noexcept
+    godot::Ref<resource::ResourceMap> DirectionalAnimatedSpriteRenderer::get_resources() const noexcept
     {
         return DirectionalRenderer<AnimatedSprite2DPolicy>::get_resources();
     }

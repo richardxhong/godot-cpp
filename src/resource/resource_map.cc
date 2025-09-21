@@ -1,16 +1,16 @@
 #include "resource_map.h"
 #include "directional_resource.h"
 
-namespace godot
+namespace resource
 {
-    void ResourceMap::set_states(const TypedDictionary<StringName, Ref<DirectionalResource>> &states) noexcept
+    void ResourceMap::set_states(const StatesDict &states) noexcept
     {
         if (&states == &this->states)
             return;
         this->states = states;
     }
 
-    TypedDictionary<StringName, Ref<DirectionalResource>> ResourceMap::get_states() const noexcept
+    StatesDict ResourceMap::get_states() const noexcept
     {
         return states;
     }
@@ -23,15 +23,15 @@ namespace godot
 
     void ResourceMap::_bind_methods()
     {
-        ClassDB::bind_method(D_METHOD("set_states", "states"), &ResourceMap::set_states);
-        ClassDB::bind_method(D_METHOD("get_states"), &ResourceMap::get_states);
+        godot::ClassDB::bind_method(godot::D_METHOD("set_states", "states"), &ResourceMap::set_states);
+        godot::ClassDB::bind_method(godot::D_METHOD("get_states"), &ResourceMap::get_states);
 
         ADD_PROPERTY(
-            PropertyInfo(
-                Variant::DICTIONARY,
+            godot::PropertyInfo(
+                godot::Variant::DICTIONARY,
                 "states",
-                PROPERTY_HINT_DICTIONARY_TYPE,
-                vformat("%s:;%s/%s:%s", Variant::STRING_NAME, Variant::OBJECT, PROPERTY_HINT_RESOURCE_TYPE, "DirectionalResource")),
+                godot::PROPERTY_HINT_DICTIONARY_TYPE,
+                vformat("%s:;%s/%s:%s", godot::Variant::STRING_NAME, godot::Variant::OBJECT, godot::PROPERTY_HINT_RESOURCE_TYPE, "DirectionalResource")),
             "set_states",
             "get_states");
     }

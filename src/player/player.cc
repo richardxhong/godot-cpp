@@ -10,15 +10,15 @@
 #include "common/direction.h"
 #include "renderer/directional_renderer.h"
 
-namespace godot
+namespace player
 {
     void Player::_ready()
     {
-        if (Node *n = get_node_or_null(NodePath("DirectionalAnimatedSpriteRenderer")))
+        if (godot::Node *n = get_node_or_null(godot::NodePath("DirectionalAnimatedSpriteRenderer")))
         {
-            renderer = Object::cast_to<DirectionalAnimatedSpriteRenderer>(n);
+            renderer = godot::Object::cast_to<renderer::DirectionalAnimatedSpriteRenderer>(n);
         }
-        input = Input::get_singleton();
+        input = godot::Input::get_singleton();
     }
 
     void Player::_physics_process(double)
@@ -26,7 +26,7 @@ namespace godot
         if (!input)
             return;
 
-        Vector2 mv = input->get_vector(SNAME("move_left"), SNAME("move_right"), SNAME("move_up"), SNAME("move_down"));
+        godot::Vector2 mv = input->get_vector(SNAME("move_left"), SNAME("move_right"), SNAME("move_up"), SNAME("move_down"));
         int mult = 50;
         if (input->is_action_pressed(SNAME("sprint_hold")))
         {
@@ -42,7 +42,7 @@ namespace godot
         if (moving)
         {
             renderer->set_state(mult == 50 ? SNAME("walk") : SNAME("run"));
-            renderer->set_direction(from_vector(mv));
+            renderer->set_direction(common::from_vector(mv));
         }
         else
         {

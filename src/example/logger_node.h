@@ -2,11 +2,11 @@
 
 #include <godot_cpp/classes/node.hpp>
 
-namespace godot
+namespace example
 {
-    class LoggerNode : public Node
+    class LoggerNode : public godot::Node
     {
-        GDCLASS(LoggerNode, Node)
+        GDCLASS(LoggerNode, godot::Node)
         double time;
         double frequency;
 

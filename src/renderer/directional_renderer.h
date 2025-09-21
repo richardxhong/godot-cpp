@@ -9,14 +9,21 @@
 #include "resource/resource_map.h"
 #include "common/direction.h"
 
-namespace godot
+namespace renderer
 {
+    // Local aliases for frequently used Godot types in this module
+    using Node2D = godot::Node2D;
+    using AnimatedSprite2D = godot::AnimatedSprite2D;
+    template <class T>
+    using Ref = godot::Ref<T>;
+    using Resource = godot::Resource;
+    using StringName = godot::StringName;
     template <class ChildT>
     struct NodeApplyPolicy
     {
         using Child = ChildT;
 
-        static void ensure(Child *&child, Node *owner) noexcept;
+        static void ensure(Child *&child, godot::Node *owner) noexcept;
         static bool apply(Child *child, const Ref<Resource> &res);
     };
 
@@ -27,9 +34,9 @@ namespace godot
     {
 
     private:
-        Ref<ResourceMap> resources;
+        Ref<resource::ResourceMap> resources;
         StringName state = StringName("idle");
-        Direction direction = Direction::SOUTH;
+        common::Direction direction = common::Direction::SOUTH;
         typename Policy::Child *child = nullptr;
 
         void render();
@@ -39,23 +46,23 @@ namespace godot
 
     public:
         void _ready() override;
-        void set_resources(const Ref<ResourceMap> &res) noexcept;
-        [[nodiscard]] Ref<ResourceMap> get_resources() const noexcept;
+        void set_resources(const Ref<resource::ResourceMap> &res) noexcept;
+        [[nodiscard]] Ref<resource::ResourceMap> get_resources() const noexcept;
 
         void set_state(const StringName &state) noexcept;
-        void set_direction(const Direction &direction) noexcept;
+        void set_direction(const common::Direction &direction) noexcept;
     };
 
     class DirectionalAnimatedSpriteRenderer : public DirectionalRenderer<AnimatedSprite2DPolicy>
     {
-        GDCLASS(DirectionalAnimatedSpriteRenderer, Node2D)
+        GDCLASS(DirectionalAnimatedSpriteRenderer, godot::Node2D)
 
     protected:
         static void _bind_methods();
 
     public:
         void _ready() override;
-        void set_resources(const Ref<ResourceMap> &res) noexcept;
-        [[nodiscard]] Ref<ResourceMap> get_resources() const noexcept;
+        void set_resources(const Ref<resource::ResourceMap> &res) noexcept;
+        [[nodiscard]] Ref<resource::ResourceMap> get_resources() const noexcept;
     };
 }

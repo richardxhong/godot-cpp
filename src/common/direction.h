@@ -8,8 +8,12 @@
 
 #include "common/sname_compat.h"
 
-namespace godot
+namespace common
 {
+    // Local aliases to reduce repeated godot:: qualifiers in this header
+    using StringName = godot::StringName;
+    using Vector2 = godot::Vector2;
+    using real_t = godot::real_t;
     enum class Direction : uint8_t
     {
         NORTH = 0,

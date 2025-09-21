@@ -5,8 +5,11 @@
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/core/error_macros.hpp>
 
-namespace godot
+namespace resource
 {
+    template <class T>
+    using Ref = godot::Ref<T>;
+    using Resource = godot::Resource;
     void DirectionalResource::validate_index(int index) const
     {
         ERR_FAIL_INDEX_EDMSG(index, static_cast<int>(assets.size()), "DirectionalResource: index out of range.");
@@ -27,12 +30,12 @@ namespace godot
         return assets[index];
     }
 
-    Ref<Resource> DirectionalResource::get_best_asset_for(Direction dir, bool &flip_h) const
+    Ref<Resource> DirectionalResource::get_best_asset_for(common::Direction dir, bool &flip_h) const
     {
         static const Ref<Resource> empty;
         flip_h = false;
         const int idx = static_cast<int>(dir);
-        if (dir == Direction::COUNT || idx < 0 || idx >= assets.size())
+        if (dir == common::Direction::COUNT || idx < 0 || idx >= static_cast<int>(assets.size()))
             return empty;
 
         Ref<Resource> a = assets[idx];
@@ -48,10 +51,10 @@ namespace godot
             flip_h = true;
             return a;
         }
-        constexpr int SE = static_cast<int>(Direction::SOUTH_EAST);
-        constexpr int SW = static_cast<int>(Direction::SOUTH_WEST);
+        constexpr int SE = static_cast<int>(common::Direction::SOUTH_EAST);
+        constexpr int SW = static_cast<int>(common::Direction::SOUTH_WEST);
 
-        if (dir == Direction::EAST)
+        if (dir == common::Direction::EAST)
         {
             a = assets[SE];
             if (a.is_valid())
@@ -64,7 +67,7 @@ namespace godot
             }
         }
 
-        if (dir == Direction::WEST)
+        if (dir == common::Direction::WEST)
         {
             a = assets[SW];
             if (a.is_valid())
@@ -81,16 +84,16 @@ namespace godot
 
     void DirectionalResource::_bind_methods()
     {
-        ClassDB::bind_method(D_METHOD("set_asset", "index", "resource"), &DirectionalResource::set_asset);
-        ClassDB::bind_method(D_METHOD("get_asset", "index"), &DirectionalResource::get_asset);
+        godot::ClassDB::bind_method(godot::D_METHOD("set_asset", "index", "resource"), &DirectionalResource::set_asset);
+        godot::ClassDB::bind_method(godot::D_METHOD("get_asset", "index"), &DirectionalResource::get_asset);
 
         ADD_GROUP("Directional Assets", "");
 
-        for (std::size_t i = 0; i < direction_count; ++i)
+        for (std::size_t i = 0; i < common::direction_count; ++i)
         {
-            const StringName name = direction_name(static_cast<Direction>(i));
-            PropertyInfo pi(Variant::OBJECT, name, PROPERTY_HINT_RESOURCE_TYPE, "Resource");
-            ADD_PROPERTYI(pi, "set_asset", "get_asset", i);
+            const godot::StringName name = common::direction_name(static_cast<common::Direction>(i));
+            godot::PropertyInfo pi(godot::Variant::OBJECT, name, godot::PROPERTY_HINT_RESOURCE_TYPE, "Resource");
+            ADD_PROPERTYI(pi, "set_asset", "get_asset", static_cast<int>(i));
         }
     }
 }

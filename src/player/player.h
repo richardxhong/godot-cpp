@@ -4,9 +4,15 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/classes/input.hpp>
 
-namespace godot
+namespace renderer
 {
     class DirectionalAnimatedSpriteRenderer;
+}
+
+namespace player
+{
+    using godot::CharacterBody2D;
+    using godot::Input;
 
     class Player : public CharacterBody2D
     {
@@ -14,7 +20,7 @@ namespace godot
 
     private:
         Input *input = nullptr;
-        DirectionalAnimatedSpriteRenderer *renderer = nullptr;
+        renderer::DirectionalAnimatedSpriteRenderer *renderer = nullptr;
 
     protected:
         static void _bind_methods() {}
