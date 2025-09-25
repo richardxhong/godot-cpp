@@ -11,15 +11,12 @@ namespace renderer
 
 namespace player
 {
-    using godot::CharacterBody2D;
-    using godot::Input;
-
-    class Player : public CharacterBody2D
+    class Player : public godot::CharacterBody2D
     {
-        GDCLASS(Player, CharacterBody2D)
+        GDCLASS(Player, godot::CharacterBody2D)
 
     private:
-        Input *input = nullptr;
+        godot::Input *input = nullptr;
         renderer::DirectionalAnimatedSpriteRenderer *renderer = nullptr;
 
     protected:

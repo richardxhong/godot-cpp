@@ -1,9 +1,11 @@
 #include <register_types.h>
+
 #include "example/logger_node.h"
 #include "player/player.h"
 #include "resource/directional_resource.h"
 #include "resource/resource_map.h"
 #include "renderer/directional_renderer.h"
+#include "grid/grid_resampler.h"
 
 namespace godot
 {
@@ -18,6 +20,8 @@ namespace godot
 
         GDREGISTER_RUNTIME_CLASS(example::LoggerNode);
         GDREGISTER_RUNTIME_CLASS(player::Player);
+
+        GDREGISTER_RUNTIME_CLASS(grid::GridResampler);
     }
 
     void uninit(const ModuleInitializationLevel level)
